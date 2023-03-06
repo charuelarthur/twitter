@@ -6,6 +6,10 @@ import main.java.com.ubo.tp.twitub.datamodel.Twit;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 public class TwitubTwitList {
@@ -22,19 +26,20 @@ public class TwitubTwitList {
     this.twitubMainView = twitubMainView;
   }
 
-  public JPanel show(Set<Twit> twits) {
+  public JPanel show(List<Twit> twits) {
     return initJPanel(twits);
   }
 
-  private JPanel initJPanel(Set<Twit> twits)  {
-    JPanel panel = new JPanel();
+  private JPanel initJPanel(List<Twit> twits)  {
+    JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING,0, 0));
+
     panel.setLayout(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
     c.fill = GridBagConstraints.HORIZONTAL;
     c.gridx = 0;
     c.gridy = 0;
     for (Twit twit : twits) {
-      panel.add(new JLabel(twit.getTwiter().getName() + " : " + twit.getText()), c);
+      panel.add(this.addTwitPanel(twit), c);
       c.gridy++;
     }
     return panel;
@@ -45,16 +50,32 @@ public class TwitubTwitList {
     panel.setBorder(BorderFactory.createLineBorder(Color.black));
 
     //AVATAR
-    JLabel userLabel = new JLabel(twit.getTwiter().getName());
-    JLabel userTag = new JLabel(twit.getTwiter().getUserTag());
-    JLabel dateLabel = new JLabel(String.valueOf(twit.getEmissionDate()));
+    JLabel userLabel = new JLabel(twit.getTwiter().getName() + " @" + twit.getTwiter().getUserTag()+" - ");
+    //text label in bold
+    userLabel.setFont(new Font("Serif", Font.BOLD, 12));
+    //color blue
+    userLabel.setForeground(Color.BLUE);
+    //date label timestamp to date
+    Date date = new Date(twit.getEmissionDate());
+    Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+    JLabel dateLabel = new JLabel(format.format(date));
     JLabel textLabel = new JLabel(twit.getText());
 
-    panel.add(userLabel);
-    panel.add(dateLabel);
-    panel.add(textLabel);
+    panel.setLayout(new GridBagLayout());
+    GridBagConstraints c = new GridBagConstraints();
+   //set labels to the left
+   // c.fill = GridBagConstraints.LINE_START;
 
-
+    c.gridx = 0;
+    c.gridy = 0;
+    //userLabel.setVerticalAlignment(SwingConstants.LEADING);
+    panel.add(userLabel, c);
+    c.gridy = 0;
+    c.gridx = 2;
+    panel.add(dateLabel, c);
+    c.gridx = 0;
+    c.gridy = 1;
+    panel.add(textLabel, c);
 
     return panel;
   }

@@ -80,8 +80,6 @@ public class Twitub {
 		this.initDirectory(twitubDirectory.init());
 		//this.addAdmin();
 
-		/*TwitubLogin twitubLogin = new TwitubLogin(this.mDatabase, this.mEntityManager);
-		twitubLogin.show();*/
 		TwitubMainView twitubMainView = new TwitubMainView(this.mDatabase, this.mEntityManager);
 		twitubMainView.show();
 	}

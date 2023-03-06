@@ -2,9 +2,14 @@ package main.java.com.ubo.tp.twitub.ihm;
 
 import main.java.com.ubo.tp.twitub.core.EntityManager;
 import main.java.com.ubo.tp.twitub.datamodel.IDatabase;
+import main.java.com.ubo.tp.twitub.datamodel.Twit;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
+import java.lang.Math;
+
 
 /**
  * Classe de la vue principale de l'application.
@@ -43,7 +48,8 @@ public class TwitubMainView {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLocationRelativeTo(null);
     frame.setResizable(false);
-    frame.setVisible(true);this.init();
+    frame.setVisible(true);
+    this.init();
   }
 
   private void init() {
@@ -120,7 +126,21 @@ public class TwitubMainView {
   public void loadTweet() {
     panelTweet.removeAll();
     panelTweet.setLayout(new BorderLayout());
-    panelTweet.add(new TwitubTwitList(mDatabase, mEntityManager, this).show(mDatabase.getTwits()), BorderLayout.CENTER);
+
+    Set<Twit> twits = mDatabase.getTwits();
+    //sort by emission date
+    List<Twit> twitsList = new ArrayList<>(twits);
+    Collections.sort(twitsList, new Comparator<Twit>() {
+              @Override
+              public int compare(Twit o1, Twit o2) {
+                long date1 = o1.getEmissionDate();
+                long date2 = o2.getEmissionDate();
+                return Long.compare(date2, date1);
+              }
+            }
+    );
+    
+    panelTweet.add(new TwitubTwitList(mDatabase, mEntityManager, this).show(twitsList), BorderLayout.NORTH);
     this.frame.add(panelTweet);
     this.frame.setVisible(true);
   }
