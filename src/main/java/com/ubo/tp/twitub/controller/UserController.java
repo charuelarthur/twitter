@@ -24,6 +24,7 @@ public class UserController {
     UUID uid = UUID.randomUUID();
     User user = new User(uid, tag, password, name, new HashSet<>(), avatar);
     this.mDatabase.addUser(user);
+    this.mEntityManager.sendUser(user);
     return true;
   }
 

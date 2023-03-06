@@ -88,7 +88,9 @@ public class Twitub {
 	}
 
 	private void addAdmin() {
-		this.mDatabase.addUser(new User(UUID.randomUUID(), "admin", "admin", "admin", new HashSet<>(), ""));
+		User user = new User(UUID.randomUUID(), "admin", "admin", "admin", new HashSet<>(), "");
+		this.mDatabase.addUser(user);
+		this.mEntityManager.sendUser(user);
 	}
 
 	/**
