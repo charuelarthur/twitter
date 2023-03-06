@@ -136,4 +136,6 @@ public interface IDatabase {
 	 */
 	public User getUnknowUser();
 
+	public User getUser(String tag);
+
 }
