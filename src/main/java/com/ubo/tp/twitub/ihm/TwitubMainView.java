@@ -126,6 +126,7 @@ public class TwitubMainView {
   public void loadTweet() {
     panelTweet.removeAll();
     panelTweet.setLayout(new BorderLayout());
+
     Set<Twit> twits = mDatabase.getTwits();
     //sort by emission date
     List<Twit> twitsList = new ArrayList<>(twits);
@@ -139,7 +140,7 @@ public class TwitubMainView {
             }
     );
     
-    panelTweet.add(new TwitubTwitList(mDatabase, mEntityManager, this).show(twitsList), BorderLayout.CENTER);
+    panelTweet.add(new TwitubTwitList(mDatabase, mEntityManager, this).show(twitsList), BorderLayout.NORTH);
     this.frame.add(panelTweet);
     this.frame.setVisible(true);
   }

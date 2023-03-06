@@ -31,7 +31,8 @@ public class TwitubTwitList {
   }
 
   private JPanel initJPanel(List<Twit> twits)  {
-    JPanel panel = new JPanel();
+    JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING,0, 0));
+
     panel.setLayout(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
     c.fill = GridBagConstraints.HORIZONTAL;
@@ -50,6 +51,10 @@ public class TwitubTwitList {
 
     //AVATAR
     JLabel userLabel = new JLabel(twit.getTwiter().getName() + " @" + twit.getTwiter().getUserTag()+" - ");
+    //text label in bold
+    userLabel.setFont(new Font("Serif", Font.BOLD, 12));
+    //color blue
+    userLabel.setForeground(Color.BLUE);
     //date label timestamp to date
     Date date = new Date(twit.getEmissionDate());
     Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
@@ -58,9 +63,12 @@ public class TwitubTwitList {
 
     panel.setLayout(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
-    c.fill = GridBagConstraints.HORIZONTAL;
+   //set labels to the left
+   // c.fill = GridBagConstraints.LINE_START;
+
     c.gridx = 0;
     c.gridy = 0;
+    //userLabel.setVerticalAlignment(SwingConstants.LEADING);
     panel.add(userLabel, c);
     c.gridy = 0;
     c.gridx = 2;
