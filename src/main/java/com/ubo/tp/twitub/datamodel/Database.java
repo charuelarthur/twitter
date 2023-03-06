@@ -274,6 +274,19 @@ public class Database implements IDatabase {
 		return new User(Constants.UNKNONWN_USER_UUID, "<Inconnu>", "--", "<Inconnu>", new HashSet<>(), "");
 	}
 
+	@Override
+	public User getUser(String tag) {
+		// Parcours de tous les utilisateurs de la base
+		for (User user : this.getUsers()) {
+			// Si le tag de l'utilisateur courant est celui recherché
+			if (user.getUserTag().equals(tag)) {
+				return user;
+			}
+		}
+
+		return this.getUnknowUser();
+	}
+
 	/**
 	 * @{inheritDoc
 	 */
