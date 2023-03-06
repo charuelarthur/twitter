@@ -18,7 +18,7 @@ public class TweetController {
   public boolean addTweet(String text) {
     if (text.length() > 0) {
       Twit twit = new Twit(mEntityManager.getCurrentUser(), text);
-      mDatabase.addTwit(twit);
+      //mDatabase.addTwit(twit);
       this.mEntityManager.sendTwit(twit);
       return true;
     }
