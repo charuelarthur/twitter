@@ -20,6 +20,7 @@ public class TwitubMainView {
 
   protected JPanel panelMenu;
   protected JPanel panelTweet;
+  protected JPanel panelProfile;
 
   protected IDatabase mDatabase;
 
@@ -37,6 +38,7 @@ public class TwitubMainView {
     this.frame = new JFrame();
     this.panelMenu = new JPanel();
     this.panelTweet = new JPanel();
+    this.panelProfile = new JPanel();
     this.twitubLogin = new TwitubLogin(mDatabase, mEntityManager, this);
     this.menuBar = new JMenuBar();
     this.twitubCreateUser = new TwitubCreateUser(mDatabase, mEntityManager, this);
@@ -97,6 +99,14 @@ public class TwitubMainView {
     item.addActionListener(e -> {
       this.frame.remove(this.panelTweet);
       this.frame.add(new TwitubAddTweet(mDatabase, mEntityManager, this).show());
+      this.frame.setVisible(true);
+    });
+    menu.add(item);
+    item = new JMenuItem("Profile");
+    item.addActionListener(e -> {
+      this.frame.remove(this.panelTweet);
+      panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this).show(), BorderLayout.PAGE_START);
+      this.frame.add(panelProfile);
       this.frame.setVisible(true);
     });
     menu.add(item);
