@@ -49,8 +49,4 @@ public interface IDatabaseObserver {
 	 * @param modifiedUser
 	 */
 	void notifyUserModified(User modifiedUser);
-
-	void initWatching();
-
-	void addObserver(EntityManager mEntityManager);
 }

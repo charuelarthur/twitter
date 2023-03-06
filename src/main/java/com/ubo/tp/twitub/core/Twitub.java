@@ -7,10 +7,7 @@ import java.util.UUID;
 import main.java.com.ubo.tp.twitub.datamodel.*;
 import main.java.com.ubo.tp.twitub.events.file.IWatchableDirectory;
 import main.java.com.ubo.tp.twitub.events.file.WatchableDirectory;
-import main.java.com.ubo.tp.twitub.ihm.TwitubDirectory;
-import main.java.com.ubo.tp.twitub.ihm.TwitubLogin;
-import main.java.com.ubo.tp.twitub.ihm.TwitubMainView;
-import main.java.com.ubo.tp.twitub.ihm.TwitubMock;
+import main.java.com.ubo.tp.twitub.ihm.*;
 
 /**
  * Classe principale l'application.
@@ -55,6 +52,8 @@ public class Twitub {
 	 */
 	protected String mUiClassName;
 
+	protected DatabaseConsoleObserver mDatabaseConsoleObserver;
+
 	/**
 	 * Constructeur.
 	 */
@@ -79,7 +78,7 @@ public class Twitub {
 	private void initView() {
 		TwitubDirectory twitubDirectory = new TwitubDirectory(this.mDatabase, this.mEntityManager);
 		this.initDirectory(twitubDirectory.init());
-		this.addAdmin();
+		//this.addAdmin();
 
 		/*TwitubLogin twitubLogin = new TwitubLogin(this.mDatabase, this.mEntityManager);
 		twitubLogin.show();*/
@@ -141,10 +140,11 @@ public class Twitub {
 	 */
 	protected void initDatabase() {
 		mDatabase = new Database();
-		mDatabaseObserver = new WatchableDatabase((Database) mDatabase);
 		mEntityManager = new EntityManager(mDatabase);
+		mDatabaseConsoleObserver = new DatabaseConsoleObserver();
 
-		mDatabaseObserver.initWatching();
+		mDatabase.addObserver(mDatabaseConsoleObserver);
+
 	}
 
 	/**
