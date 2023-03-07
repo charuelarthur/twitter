@@ -54,7 +54,7 @@ public class TwitubTwitList {
   private JPanel addTwitPanel(Twit twit) {
     JPanel panel = new JPanel();
     panel.setBorder(BorderFactory.createLineBorder(Color.black));
-
+    panel.setAutoscrolls(true);
     //AVATAR
     JLabel userLabel = new JLabel(twit.getTwiter().getName() + " @" + twit.getTwiter().getUserTag()+" - ");
     //text label in bold

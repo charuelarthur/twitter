@@ -35,14 +35,11 @@ public class TwitubFilter {
     c.fill = GridBagConstraints.HORIZONTAL;
     c.gridx = 0;
     c.gridy = 0;
-    panel.add(new JLabel("Filter"), c);
-    c.gridx = 1;
-    c.gridy = 0;
     JTextField filterField = new JTextField();
     filterField.setColumns(20);
     panel.add(filterField, c);
-    c.gridx = 0;
-    c.gridy = 1;
+    c.gridx = 1;
+    c.gridy = 0;
     JButton filterButton = new JButton("Filter");
     TweetController tweetController = new TweetController((Database) mDatabase, mEntityManager);
     filterButton.addActionListener(new ActionListener() {

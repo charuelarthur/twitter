@@ -177,8 +177,12 @@ public class TwitubMainView {
               }
             }
     );
+    //add scroll
+    JScrollPane scrollBar = new JScrollPane(new TwitubTwitList(mDatabase, mEntityManager, this).show(twitsList));
+    scrollBar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollBar.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    panelTweet.add(new TwitubTwitList(mDatabase, mEntityManager, this).show(twitsList), BorderLayout.NORTH);
+    panelTweet.add(scrollBar, BorderLayout.CENTER);
     panelTweet.add(new TwitubFilter(mDatabase, mEntityManager, this).show(), BorderLayout.SOUTH);
     this.frame.add(panelTweet);
     panelTweet.setVisible(true);
