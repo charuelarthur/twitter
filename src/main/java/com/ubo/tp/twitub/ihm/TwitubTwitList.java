@@ -57,6 +57,7 @@ public class TwitubTwitList {
     JLabel userLabel = new JLabel(twit.getTwiter().getName() + " @" + twit.getTwiter().getUserTag()+" - ");
     //text label in bold
     userLabel.setFont(new Font("Serif", Font.BOLD, 12));
+
     //color blue
     userLabel.setForeground(Color.BLUE);
     //date label timestamp to date
