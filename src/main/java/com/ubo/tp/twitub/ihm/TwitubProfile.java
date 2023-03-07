@@ -80,7 +80,6 @@ public class TwitubProfile {
             gc.gridy++;
             gc.insets = new Insets(5, 20 , 5, 20);
             panel.add(this.addTwitPanel(twit), gc);
-
         }
 
         return panel;

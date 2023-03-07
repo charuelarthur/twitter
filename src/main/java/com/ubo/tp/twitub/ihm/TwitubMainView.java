@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.lang.Math;
 
 
 /**
@@ -24,7 +23,7 @@ public class TwitubMainView {
   protected JPanel panelMenu;
   protected JPanel panelTweet;
   protected JPanel panelFilter;
-  protected JPanel panelProfile;
+  protected JScrollPane panelProfile;
 
   protected IDatabase mDatabase;
 
@@ -43,7 +42,7 @@ public class TwitubMainView {
     this.panelMenu = new JPanel();
     this.panelTweet = new JPanel();
     this.panelFilter = new JPanel();
-    this.panelProfile = new JPanel();
+    this.panelProfile = new JScrollPane();
     this.twitubLogin = new TwitubLogin(mDatabase, mEntityManager, this);
     this.menuBar = new JMenuBar();
     this.twitubCreateUser = new TwitubCreateUser(mDatabase, mEntityManager, this);
@@ -190,13 +189,18 @@ public class TwitubMainView {
   }
 
   public void loadProfile(User user) {
-    panelProfile.removeAll();
+    this.panelProfile.removeAll();
     this.panelTweet.setVisible(false);
     this.frame.remove(panelTweet);
     this.frame.remove(panelFilter);
-    this.panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
-    this.frame.add(panelProfile);
-    panelProfile.setVisible(true);
+    //this.panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
+    panelProfile = new JScrollPane(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
+    panelProfile.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    panelProfile.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+    panelTweet.add(panelProfile, BorderLayout.CENTER);
+    this.frame.add(this.panelProfile);
+    this.panelProfile.setVisible(true);
     this.frame.setVisible(true);
   }
 
