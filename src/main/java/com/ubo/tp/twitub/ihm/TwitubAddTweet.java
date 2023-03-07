@@ -29,25 +29,29 @@ public class TwitubAddTweet {
 
   private JPanel initJPanel() {
     JPanel panel = new JPanel();
-    panel.setLayout(new GridBagLayout());
-    GridBagConstraints c = new GridBagConstraints();
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 0;
-    c.gridy = 0;
+    panel.setLayout(null);
+    panel.setBackground(new java.awt.Color(240, 240, 255));
+
+    JLabel pageLabel = new JLabel("Add a tweet");
+    pageLabel.setBounds(100, 30, 200, 25);
+    //center the text
+    pageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    pageLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+    panel.add(pageLabel);
 
     //add a text field
-    JLabel nameLabel = new JLabel("Tweet:");
+    JLabel nameLabel = new JLabel("Tweet");
+    nameLabel.setBounds(100, 75, 200, 25);
+    panel.add(nameLabel);
+
     JTextField textField = new JTextField();
-    //textfield for a max of 250 characters
-    textField.setColumns(20);
-    panel.add(nameLabel, c);
-    c.gridx = 1;
-    c.gridy = 0;
-    panel.add(textField, c);
+    textField.setBounds(100, 100, 200, 30);
+    panel.add(textField);
 
-//add a button
-    JButton button = new JButton("Add Tweet");
-
+    JButton button = new JButton("Tweeter");
+    button.setBounds(150, 150, 100, 25);
+    button.setBackground(new java.awt.Color(157, 153, 255));
+    button.setForeground(new java.awt.Color(255, 255, 255));
     TweetController tweetController = new TweetController((Database) mDatabase, mEntityManager);
     button.addActionListener(new ActionListener() {
       @Override
@@ -63,9 +67,7 @@ public class TwitubAddTweet {
         }
       }
     });
-    c.gridx = 0;
-    c.gridy = 1;
-    panel.add(button, c);
+    panel.add(button);
     return panel;
   }
 }
