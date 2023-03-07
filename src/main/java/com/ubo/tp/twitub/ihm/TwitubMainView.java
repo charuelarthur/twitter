@@ -129,8 +129,9 @@ public class TwitubMainView {
       this.panelProfile.removeAll();
       this.removePanel();
       panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, this.mEntityManager.getCurrentUser()).show(), BorderLayout.PAGE_START);
-      this.frame.add(panelProfile);
       this.panelProfile.setVisible(true);
+      this.frame.add(panelProfile);
+      this.frame.setVisible(true);
     });
     menu.add(item);
     item = new JMenuItem("Exit");
@@ -188,7 +189,8 @@ public class TwitubMainView {
     panelProfile.removeAll();
     this.frame.remove(panelTweet);
     this.frame.remove(panelFilter);
-    this.frame.add(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
+    this.panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
+    this.frame.add(panelProfile);
     panelProfile.setVisible(true);
     this.frame.setVisible(true);
   }
@@ -197,6 +199,7 @@ public class TwitubMainView {
     this.frame.remove(panelProfile);
     this.frame.remove(panelTweet);
     this.frame.remove(panelFilter);
+    this.frame.setVisible(true);
   }
 
 }
