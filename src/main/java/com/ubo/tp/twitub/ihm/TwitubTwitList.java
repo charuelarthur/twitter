@@ -10,7 +10,6 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class TwitubTwitList {
 
@@ -31,17 +30,22 @@ public class TwitubTwitList {
   }
 
   private JPanel initJPanel(List<Twit> twits)  {
-    JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING,0, 0));
+    JPanel panel = new JPanel();
 
     panel.setLayout(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
     c.fill = GridBagConstraints.HORIZONTAL;
     c.gridx = 0;
     c.gridy = 0;
-    for (Twit twit : twits) {
-      panel.add(this.addTwitPanel(twit), c);
-      c.gridy++;
+    if(twits.size() == 0) {
+      panel.add(new JLabel("No twit found"), c);
+    } else {
+      for (Twit twit : twits) {
+        panel.add(this.addTwitPanel(twit), c);
+        c.gridy++;
+      }
     }
+
     return panel;
   }
 

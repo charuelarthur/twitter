@@ -74,8 +74,7 @@ public class TwitubLogin {
       @Override
       public void actionPerformed(ActionEvent arg0) {
         panel.setVisible(false);
-        twitubMainView.loadTweet();
-
+        twitubMainView.loadTweetFilter("");
       }
     });
 

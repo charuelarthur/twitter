@@ -64,7 +64,7 @@ public class TwitubCreateUser {
                 tagField.getText(), avatarField.getText())) {
           JOptionPane.showMessageDialog(TwitubCreateUser.this.mFrame, "User created");
           panel.setVisible(false);
-          twitubMainView.loadTweet();
+          twitubMainView.loadTweetFilter("");
         } else {
           JOptionPane.showMessageDialog(TwitubCreateUser.this.mFrame, "User tag already exist");
         }

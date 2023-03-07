@@ -57,7 +57,7 @@ public class TwitubAddTweet {
         } else if (tweetController.addTweet(textField.getText())) {
           JOptionPane.showMessageDialog(null, "Tweet added");
           panel.setVisible(false);
-          twitubMainView.loadTweet();
+          twitubMainView.loadTweetFilter("");
         } else {
           JOptionPane.showMessageDialog(null, "Tweet not added");
         }
