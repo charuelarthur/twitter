@@ -5,6 +5,7 @@ import main.java.com.ubo.tp.twitub.core.EntityManager;
 import main.java.com.ubo.tp.twitub.datamodel.Database;
 import main.java.com.ubo.tp.twitub.datamodel.IDatabase;
 import main.java.com.ubo.tp.twitub.datamodel.Twit;
+import main.java.com.ubo.tp.twitub.datamodel.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +23,13 @@ public class TwitubProfile {
 
     TwitubMainView twitubMainView;
 
-    public TwitubProfile(IDatabase mDatabase, EntityManager mEntityManager, TwitubMainView twitubMainView) {
+    protected User user;
+
+    public TwitubProfile(IDatabase mDatabase, EntityManager mEntityManager, TwitubMainView twitubMainView, User user) {
         this.mDatabase = mDatabase;
         this.mEntityManager = mEntityManager;
         this.twitubMainView = twitubMainView;
+        this.user = user;
     }
 
     public JPanel show() {
@@ -52,7 +56,7 @@ public class TwitubProfile {
         gc.gridy = 0;
         panel.add(label, gc);
 
-        JLabel nameLabel = new JLabel(this.mEntityManager.getCurrentUser().getName());
+        JLabel nameLabel = new JLabel(user.getName());
         nameLabel.setPreferredSize(new Dimension(350,10));
         gc.insets = new Insets(5, 40, 5, 5);
         gc.gridx = 0;
@@ -60,7 +64,7 @@ public class TwitubProfile {
         gc.weightx = 1;
         panel.add(nameLabel, gc);
 
-        String userTag = "@" + this.mEntityManager.getCurrentUser().getUserTag();
+        String userTag = "@" + user.getUserTag();
 
         JLabel tagLabel = new JLabel(userTag);
         tagLabel.setPreferredSize(new Dimension(350,10));
