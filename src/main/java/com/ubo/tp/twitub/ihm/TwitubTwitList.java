@@ -6,6 +6,8 @@ import main.java.com.ubo.tp.twitub.datamodel.Twit;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,6 +61,16 @@ public class TwitubTwitList {
     userLabel.setFont(new Font("Serif", Font.BOLD, 12));
     //color blue
     userLabel.setForeground(Color.BLUE);
+
+    userLabel.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        System.out.println(twit.getTwiter());
+        twitubMainView.frame.remove(twitubMainView.panelProfile);
+        twitubMainView.loadProfile(twit.getTwiter());
+      }
+    });
+
     //date label timestamp to date
     Date date = new Date(twit.getEmissionDate());
     Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
@@ -74,11 +86,12 @@ public class TwitubTwitList {
     c.gridy = 0;
     //userLabel.setVerticalAlignment(SwingConstants.LEADING);
     panel.add(userLabel, c);
+    c.gridx = 1;
     c.gridy = 0;
-    c.gridx = 2;
     panel.add(dateLabel, c);
     c.gridx = 0;
     c.gridy = 1;
+    c.gridwidth = 3;
     panel.add(textLabel, c);
 
     return panel;

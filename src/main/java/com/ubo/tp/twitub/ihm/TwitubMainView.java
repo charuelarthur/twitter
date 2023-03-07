@@ -5,6 +5,7 @@ import main.java.com.ubo.tp.twitub.core.EntityManager;
 import main.java.com.ubo.tp.twitub.datamodel.Database;
 import main.java.com.ubo.tp.twitub.datamodel.IDatabase;
 import main.java.com.ubo.tp.twitub.datamodel.Twit;
+import main.java.com.ubo.tp.twitub.datamodel.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,6 +86,13 @@ public class TwitubMainView {
       this.frame.setVisible(true);
     });
     menu.add(item);
+    item = new JMenuItem("Home");
+    item.addActionListener(e -> {
+      this.frame.remove(this.panelProfile);
+      this.loadTweetFilter("");
+      this.frame.setVisible(true);
+    });
+    menu.add(item);
     item = new JMenuItem("Exit");
     item.addActionListener(e -> {
       System.exit(0);
@@ -100,6 +108,15 @@ public class TwitubMainView {
       this.isDisconnect();
     });
     menu.add(item);
+    item = new JMenuItem("Home");
+    item.addActionListener(e -> {
+      this.removePanel();
+      this.panelProfile.removeAll();
+      this.panelProfile.setVisible(false);
+      this.loadTweetFilter("");
+      this.frame.setVisible(true);
+    });
+    menu.add(item);
     item = new JMenuItem("Add a tweet");
     item.addActionListener(e -> {
       this.frame.remove(this.panelTweet);
@@ -109,10 +126,11 @@ public class TwitubMainView {
     menu.add(item);
     item = new JMenuItem("Profile");
     item.addActionListener(e -> {
-      this.frame.remove(this.panelTweet);
-      panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this).show(), BorderLayout.PAGE_START);
+      this.panelProfile.removeAll();
+      this.removePanel();
+      panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, this.mEntityManager.getCurrentUser()).show(), BorderLayout.PAGE_START);
       this.frame.add(panelProfile);
-      this.frame.setVisible(true);
+      this.panelProfile.setVisible(true);
     });
     menu.add(item);
     item = new JMenuItem("Exit");
@@ -164,6 +182,21 @@ public class TwitubMainView {
     this.frame.add(panelTweet);
     panelTweet.setVisible(true);
     this.frame.setVisible(true);
+  }
+
+  public void loadProfile(User user) {
+    panelProfile.removeAll();
+    this.frame.remove(panelTweet);
+    this.frame.remove(panelFilter);
+    this.frame.add(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
+    panelProfile.setVisible(true);
+    this.frame.setVisible(true);
+  }
+
+  public void removePanel() {
+    this.frame.remove(panelProfile);
+    this.frame.remove(panelTweet);
+    this.frame.remove(panelFilter);
   }
 
 }
