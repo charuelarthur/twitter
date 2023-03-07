@@ -1,6 +1,8 @@
 package main.java.com.ubo.tp.twitub.ihm;
 
+import main.java.com.ubo.tp.twitub.controller.TweetController;
 import main.java.com.ubo.tp.twitub.core.EntityManager;
+import main.java.com.ubo.tp.twitub.datamodel.Database;
 import main.java.com.ubo.tp.twitub.datamodel.IDatabase;
 import main.java.com.ubo.tp.twitub.datamodel.Twit;
 
@@ -20,6 +22,7 @@ public class TwitubMainView {
 
   protected JPanel panelMenu;
   protected JPanel panelTweet;
+  protected JPanel panelFilter;
 
   protected IDatabase mDatabase;
 
@@ -37,6 +40,7 @@ public class TwitubMainView {
     this.frame = new JFrame();
     this.panelMenu = new JPanel();
     this.panelTweet = new JPanel();
+    this.panelFilter = new JPanel();
     this.twitubLogin = new TwitubLogin(mDatabase, mEntityManager, this);
     this.menuBar = new JMenuBar();
     this.twitubCreateUser = new TwitubCreateUser(mDatabase, mEntityManager, this);
@@ -55,9 +59,10 @@ public class TwitubMainView {
   private void init() {
     panelMenu.setLayout(new BorderLayout());
     menuBar.add(menuNonCo());
+    GridBagConstraints c = new GridBagConstraints();
     panelMenu.add(menuBar, BorderLayout.NORTH);
     frame.setContentPane(panelMenu);
-    this.loadTweet();
+    this.loadTweetFilter("");
     frame.setVisible(true);
   }
 
@@ -112,22 +117,26 @@ public class TwitubMainView {
     mEntityManager.setCurrentUser(null);
     this.menuBar.removeAll();
     this.menuBar.add(menuNonCo());
-    this.loadTweet();
+    this.loadTweetFilter("");
     this.frame.setVisible(true);
   }
 
   public void isConnecte() {
     this.menuBar.removeAll();
     this.menuBar.add(menuCo());
-    this.loadTweet();
+    this.loadTweetFilter("");
     this.frame.setVisible(true);
   }
 
-  public void loadTweet() {
+  public void loadTweetFilter(String filter) {
+    TweetController tweetController = new TweetController((Database) mDatabase, mEntityManager);
+    //this.frame.remove(this.panelTweet);
     panelTweet.removeAll();
+    this.frame.add(panelTweet);
+    panelTweet.setVisible(false);
     panelTweet.setLayout(new BorderLayout());
-
-    Set<Twit> twits = mDatabase.getTwits();
+    //
+    Set<Twit> twits = tweetController.filterTweet(filter);
     //sort by emission date
     List<Twit> twitsList = new ArrayList<>(twits);
     Collections.sort(twitsList, new Comparator<Twit>() {
@@ -139,9 +148,12 @@ public class TwitubMainView {
               }
             }
     );
-    
+
     panelTweet.add(new TwitubTwitList(mDatabase, mEntityManager, this).show(twitsList), BorderLayout.NORTH);
+    panelTweet.add(new TwitubFilter(mDatabase, mEntityManager, this).show(), BorderLayout.SOUTH);
     this.frame.add(panelTweet);
+    panelTweet.setVisible(true);
     this.frame.setVisible(true);
   }
+
 }

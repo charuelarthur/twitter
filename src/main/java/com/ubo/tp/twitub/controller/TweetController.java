@@ -34,7 +34,7 @@ public class TweetController {
 
 
   public Set<Twit> filterTweet(String filter) {
-    Set<Twit> twits = new HashSet<>();
+    Set<Twit> twits;
     if (filter.startsWith("@")) {
       User user = this.mDatabase.getUser(filter.substring(1));
       twits = this.mDatabase.getTwitsWithUserTag(filter.substring(1));
@@ -43,7 +43,13 @@ public class TweetController {
       twits = this.mDatabase.getTwitsWithTag(filter.substring(1));
     } else if (filter.length() == 0){
       twits = this.mDatabase.getTwits();
+    } else {
+      User user = this.mDatabase.getUser(filter.substring(0));
+      twits = this.mDatabase.getTwitsWithUserTag(filter.substring(0));
+      twits.addAll(this.mDatabase.getUserTwits(user));
+      twits.addAll(this.mDatabase.getTwitsWithTag(filter.substring(0)));
     }
+
     return twits;
   }
 }
