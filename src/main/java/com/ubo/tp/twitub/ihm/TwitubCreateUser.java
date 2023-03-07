@@ -1,5 +1,6 @@
 package main.java.com.ubo.tp.twitub.ihm;
 
+import main.java.com.ubo.tp.twitub.controller.LoginController;
 import main.java.com.ubo.tp.twitub.controller.UserController;
 import main.java.com.ubo.tp.twitub.core.EntityManager;
 import main.java.com.ubo.tp.twitub.datamodel.Database;
@@ -33,27 +34,56 @@ public class TwitubCreateUser {
 
   private JPanel initJPanel() {
     JPanel panel = new JPanel();
-    panel.setLayout(new GridBagLayout());
-    GridBagConstraints c = new GridBagConstraints();
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.gridx = 0;
-    c.gridy = 0;
+    panel.setLayout(null);
+    panel.setBackground(new java.awt.Color(240, 240, 255));
+
+    JLabel pageLabel = new JLabel("Register");
+    pageLabel.setBounds(100, 30, 200, 25);
+    //center the text
+    pageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    pageLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+    panel.add(pageLabel);
 
     JLabel nameLabel = new JLabel("Name*");
+    nameLabel.setBounds(100, 60, 200, 25);
+    panel.add(nameLabel);
+
     JTextField nameField = new JTextField();
-    nameField.setColumns(20);
+    nameField.setBounds(100, 85, 200, 25);
+    panel.add(nameField);
+
     JLabel passwordLabel = new JLabel("Password*");
+    passwordLabel.setBounds(100, 110, 200, 25);
+    panel.add(passwordLabel);
+
     JPasswordField passwordField = new JPasswordField();
-    passwordField.setColumns(20);
+    passwordField.setBounds(100, 135, 200, 25);
+    panel.add(passwordField);
+
     JLabel tagLabel = new JLabel("Tag* @");
+    tagLabel.setBounds(100, 160, 200, 25);
+    panel.add(tagLabel);
+
     JTextField tagField = new JTextField();
-    tagField.setColumns(20);
+    tagField.setBounds(100, 185, 200, 25);
+    panel.add(tagField);
+
     JLabel avatarLabel = new JLabel("Avatar");
+    avatarLabel.setBounds(100, 210, 200, 25);
+    panel.add(avatarLabel);
+
     JTextField avatarField = new JTextField();
+    avatarField.setBounds(100, 235, 200, 25);
+    panel.add(avatarField);
+
     JLabel obligatoireLabel = new JLabel("* Obligatoire");
-    avatarField.setColumns(20);
+    obligatoireLabel.setBounds(100, 260, 200, 25);
+    panel.add(obligatoireLabel);
+
     JButton createButton = new JButton("Create");
+    createButton.setBounds(100, 285, 90, 25);
     UserController userController = new UserController(mEntityManager, (Database) mDatabase);
+
     createButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent arg0) {
@@ -70,89 +100,19 @@ public class TwitubCreateUser {
         }
       }
     });
+    panel.add(createButton);
 
-    panel.add(nameLabel, c);
-    c.gridx = 1;
-    panel.add(nameField, c);
-    c.gridx = 0;
-    c.gridy = 1;
-    panel.add(passwordLabel, c);
-    c.gridx = 1;
-    panel.add(passwordField, c);
-    c.gridx = 0;
-    c.gridy = 2;
-    panel.add(tagLabel, c);
-    c.gridx = 1;
-    panel.add(tagField, c);
-    c.gridx = 0;
-    c.gridy = 3;
-    panel.add(avatarLabel, c);
-    c.gridx = 1;
-    panel.add(avatarField, c);
-    c.gridx = 0;
-    c.gridy = 4;
-    panel.add(obligatoireLabel, c);
-    c.gridx = 1;
-    panel.add(createButton, c);
+    JButton cancelButton = new JButton("Cancel");
+    cancelButton.setBounds(210, 285, 90, 25);
+    cancelButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent arg0) {
+        panel.setVisible(false);
+        twitubMainView.loadTweetFilter("");
+      }
+    });
+    panel.add(cancelButton);
 
     return panel;
   }
-
-
-  private void init() {
-    UserController userController = new UserController(this.mEntityManager, (Database) this.mDatabase);
-
-    JLabel nameLabel = new JLabel("Name*");
-    JTextField nameField = new JTextField();
-    nameField.setColumns(20);
-    JLabel passwordLabel = new JLabel("Password*");
-    JPasswordField passwordField = new JPasswordField();
-    passwordField.setColumns(20);
-    JLabel tagLabel = new JLabel("Tag* @");
-    JTextField tagField = new JTextField();
-    tagField.setColumns(20);
-    JLabel avatarLabel = new JLabel("Avatar");
-    JTextField avatarField = new JTextField();
-    JLabel obligatoireLabel = new JLabel("* Obligatoire");
-    avatarField.setColumns(20);
-    JButton createButton = new JButton("Create");
-    createButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent arg0) {
-        if (nameField.getText().isEmpty() || passwordField.getPassword().toString().isEmpty()
-                || tagField.getText().isEmpty()) {
-          JOptionPane.showMessageDialog(TwitubCreateUser.this.mFrame, "Name, password and tag are required");
-        } else if (userController.createUser(nameField.getText(), passwordField.getPassword().toString(),
-                tagField.getText(), avatarField.getText())) {
-          JOptionPane.showMessageDialog(TwitubCreateUser.this.mFrame, "User created");
-          TwitubCreateUser.this.mFrame.dispose();
-        } else {
-          JOptionPane.showMessageDialog(TwitubCreateUser.this.mFrame, "User tag already exist");
-        }
-      }
-    });
-
-    this.mFrame.add(nameLabel, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(nameField, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(passwordLabel, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(passwordField, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(tagLabel, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(tagField, new GridBagConstraints(1, 2, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(avatarLabel, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(avatarField, new GridBagConstraints(1, 3, 1, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(obligatoireLabel, new GridBagConstraints(0, 4, 2, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-    this.mFrame.add(createButton, new GridBagConstraints(0, 5, 2, 1, 1, 1, GridBagConstraints.CENTER,
-            GridBagConstraints.NONE, new Insets(5, 5, 0, 5), 0, 0));
-  }
-
-
 }
