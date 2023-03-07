@@ -187,6 +187,7 @@ public class TwitubMainView {
 
   public void loadProfile(User user) {
     panelProfile.removeAll();
+    this.panelTweet.setVisible(false);
     this.frame.remove(panelTweet);
     this.frame.remove(panelFilter);
     this.panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
