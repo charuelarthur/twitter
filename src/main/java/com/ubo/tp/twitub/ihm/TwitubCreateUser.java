@@ -100,6 +100,8 @@ public class TwitubCreateUser {
         }
       }
     });
+    createButton.setBackground(new java.awt.Color(157, 153, 255));
+    createButton.setForeground(new java.awt.Color(255, 255, 255));
     panel.add(createButton);
 
     JButton cancelButton = new JButton("Cancel");
@@ -111,6 +113,8 @@ public class TwitubCreateUser {
         twitubMainView.loadTweetFilter("");
       }
     });
+    cancelButton.setBackground(new java.awt.Color(157, 153, 255));
+    cancelButton.setForeground(new java.awt.Color(255, 255, 255));
     panel.add(cancelButton);
 
     return panel;
