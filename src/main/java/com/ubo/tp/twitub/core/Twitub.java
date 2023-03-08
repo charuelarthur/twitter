@@ -71,8 +71,6 @@ public class Twitub {
 			this.initView();
 		}
 
-		// Initialisation de l'IHM
-	//	this.initGui();
 	}
 
 	private void initView() {
@@ -94,6 +92,7 @@ public class Twitub {
 	 * Initialisation du look and feel de l'application.
 	 */
 	protected void initLookAndFeel() {
+		// windows look and feel
 	}
 
 	/**
@@ -109,7 +108,7 @@ public class Twitub {
 	 * <b>Le chemin doit obligatoirement avoir été saisi et être valide avant de
 	 * pouvoir utiliser l'application</b>
 	 */
-	/*protected void initDirectory() {
+	/*0protected void initDirectory() {
 	}*/
 
 	/**
