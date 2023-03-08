@@ -80,6 +80,7 @@ public class TwitubMainView {
     item.addActionListener(e -> {
       this.frame.setVisible(false);
       this.removePanel();
+      this.login.setVisible(true);
       this.frame.add(login);
       this.frame.setVisible(true);
     });
@@ -88,6 +89,7 @@ public class TwitubMainView {
     item.addActionListener(e -> {
       this.frame.setVisible(false);
       this.removePanel();
+      this.register.setVisible(true);
       this.frame.add(register);
       this.frame.setVisible(true);
     });
@@ -131,6 +133,7 @@ public class TwitubMainView {
       this.frame.setVisible(false);
       this.frame.remove(this.panelTweet);
       this.removePanelConnecte();
+      this.twit.setVisible(true);
       this.frame.add(twit);
       this.frame.setVisible(true);
     });
@@ -140,6 +143,7 @@ public class TwitubMainView {
       this.frame.setVisible(false);
       this.panelProfile.removeAll();
       this.removePanelConnecte();
+      this.profile.setVisible(true);
       this.frame.add(profile);
       this.frame.setVisible(true);
     });
