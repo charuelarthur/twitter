@@ -1,0 +1,25 @@
+<project>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="main/java/com/ubo/tp/twitub/"/>
+        <javac srcdir="src" destdir="main/java/com/ubo/tp/twitub/"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/TwitubLauncher.jar" basedir="main/java/com/ubo/tp/twitub">
+            <manifest>
+                <attribute name="Main-Class" value="main.java.com.ubo.tp.twitub.TwitubLauncher"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/TwitubLauncher.jar" fork="true"/>
+    </target>
+
+</project>
