@@ -23,15 +23,18 @@ public class TwitubMainView {
   protected JPanel panelMenu;
   protected JPanel panelTweet;
   protected JPanel panelFilter;
+  protected JPanel panelLogin;
+  protected JPanel panelRegister;
   protected JScrollPane panelProfile;
 
   protected IDatabase mDatabase;
 
   protected EntityManager mEntityManager;
 
-  protected TwitubLogin twitubLogin;
-
-  protected TwitubCreateUser twitubCreateUser;
+  protected Component login;
+  protected Component register;
+  protected Component twit;
+  protected Component profile;
 
   protected JMenuBar menuBar;
 
@@ -42,10 +45,13 @@ public class TwitubMainView {
     this.panelMenu = new JPanel();
     this.panelTweet = new JPanel();
     this.panelFilter = new JPanel();
+    this.panelLogin = new JPanel();
+    this.panelRegister = new JPanel();
     this.panelProfile = new JScrollPane();
-    this.twitubLogin = new TwitubLogin(mDatabase, mEntityManager, this);
+    this.login = new TwitubLogin(mDatabase, mEntityManager, this).show();
+    this.register = new TwitubCreateUser(mDatabase, mEntityManager, this).show();
+    this.twit = new TwitubAddTweet(mDatabase, mEntityManager, this).show();
     this.menuBar = new JMenuBar();
-    this.twitubCreateUser = new TwitubCreateUser(mDatabase, mEntityManager, this);
   }
 
   public void show() {
@@ -61,7 +67,6 @@ public class TwitubMainView {
   private void init() {
     panelMenu.setLayout(new BorderLayout());
     menuBar.add(menuNonCo());
-    GridBagConstraints c = new GridBagConstraints();
     panelMenu.add(menuBar, BorderLayout.NORTH);
     frame.setContentPane(panelMenu);
     this.loadTweetFilter("");
@@ -73,21 +78,26 @@ public class TwitubMainView {
     JMenu menu = new JMenu("Menu");
     JMenuItem item = new JMenuItem("Login");
     item.addActionListener(e -> {
-      this.frame.remove(this.panelTweet);
-      this.frame.add(this.twitubLogin.show());
+      this.frame.setVisible(false);
+      this.removePanel();
+      this.login.setVisible(true);
+      this.frame.add(login);
       this.frame.setVisible(true);
     });
     menu.add(item);
     item = new JMenuItem("Register");
     item.addActionListener(e -> {
-      this.frame.remove(this.panelTweet);
-      this.frame.add(this.twitubCreateUser.show());
+      this.frame.setVisible(false);
+      this.removePanel();
+      this.register.setVisible(true);
+      this.frame.add(register);
       this.frame.setVisible(true);
     });
     menu.add(item);
     item = new JMenuItem("Home");
     item.addActionListener(e -> {
-      this.frame.remove(this.panelProfile);
+      this.frame.setVisible(false);
+      this.removePanel();
       this.loadTweetFilter("");
       this.frame.setVisible(true);
     });
@@ -101,6 +111,7 @@ public class TwitubMainView {
   }
 
   private JMenu menuCo() {
+    this.profile = new TwitubProfile(mDatabase, mEntityManager, this, this.mEntityManager.getCurrentUser()).show();
     JMenu menu = new JMenu("Menu");
     JMenuItem item = new JMenuItem("Logout");
     item.addActionListener(e -> {
@@ -109,7 +120,8 @@ public class TwitubMainView {
     menu.add(item);
     item = new JMenuItem("Home");
     item.addActionListener(e -> {
-      this.removePanel();
+      this.frame.setVisible(false);
+      this.removePanelConnecte();
       this.panelProfile.removeAll();
       this.panelProfile.setVisible(false);
       this.loadTweetFilter("");
@@ -118,18 +130,21 @@ public class TwitubMainView {
     menu.add(item);
     item = new JMenuItem("Add a tweet");
     item.addActionListener(e -> {
+      this.frame.setVisible(false);
       this.frame.remove(this.panelTweet);
-      this.frame.add(new TwitubAddTweet(mDatabase, mEntityManager, this).show());
+      this.removePanelConnecte();
+      this.twit.setVisible(true);
+      this.frame.add(twit);
       this.frame.setVisible(true);
     });
     menu.add(item);
     item = new JMenuItem("Profile");
     item.addActionListener(e -> {
+      this.frame.setVisible(false);
       this.panelProfile.removeAll();
-      this.removePanel();
-      panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, this.mEntityManager.getCurrentUser()).show(), BorderLayout.PAGE_START);
-      this.panelProfile.setVisible(true);
-      this.frame.add(panelProfile);
+      this.removePanelConnecte();
+      this.profile.setVisible(true);
+      this.frame.add(profile);
       this.frame.setVisible(true);
     });
     menu.add(item);
@@ -158,7 +173,6 @@ public class TwitubMainView {
 
   public void loadTweetFilter(String filter) {
     TweetController tweetController = new TweetController((Database) mDatabase, mEntityManager);
-    //this.frame.remove(this.panelTweet);
     panelTweet.removeAll();
     this.frame.add(panelTweet);
     panelTweet.setVisible(false);
@@ -193,7 +207,6 @@ public class TwitubMainView {
     this.panelTweet.setVisible(false);
     this.frame.remove(panelTweet);
     this.frame.remove(panelFilter);
-    //this.panelProfile.add(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
     panelProfile = new JScrollPane(new TwitubProfile(mDatabase, mEntityManager, this, user).show());
     panelProfile.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     panelProfile.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -208,7 +221,14 @@ public class TwitubMainView {
     this.frame.remove(panelProfile);
     this.frame.remove(panelTweet);
     this.frame.remove(panelFilter);
-    this.frame.setVisible(true);
+    this.frame.remove(login);
+    this.frame.remove(register);
+  }
+
+  public void removePanelConnecte() {
+    this.frame.remove(panelTweet);
+    this.frame.remove(twit);
+    this.frame.remove(profile);
   }
 
 }

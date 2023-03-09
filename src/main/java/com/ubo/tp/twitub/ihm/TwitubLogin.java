@@ -3,14 +3,11 @@ package main.java.com.ubo.tp.twitub.ihm;
 import main.java.com.ubo.tp.twitub.controller.LoginController;
 import main.java.com.ubo.tp.twitub.core.EntityManager;
 import main.java.com.ubo.tp.twitub.datamodel.IDatabase;
-import main.java.com.ubo.tp.twitub.ihm.tools.CustomeBorder;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class TwitubLogin {
 
@@ -64,7 +61,6 @@ public class TwitubLogin {
     loginButton.setBounds(100, 230, 90, 25);
     loginButton.setBackground(new java.awt.Color(157, 153, 255));
     loginButton.setForeground(new java.awt.Color(255, 255, 255));
-    //loginButton.setEffectColor(new java.awt.Color(199, 196, 255));
     panel.add(loginButton);
 
     LoginController loginController = new LoginController(mDatabase, mEntityManager, twitubMainView);
