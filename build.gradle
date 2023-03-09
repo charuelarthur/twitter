@@ -1,0 +1,14 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+}
+
+application {
+    mainClass = 'main.java.com.ubo.tp.twitub.TwitubLauncher'
+}
